@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  psql:
+    container_name: psql
+    image: postgres:16.0
+    ports:
+      - 54320:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+
+volumes:
+  postgres_data:
