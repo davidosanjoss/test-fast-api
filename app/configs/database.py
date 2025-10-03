@@ -1,5 +1,3 @@
-from typing import Annotated
-from fastapi import Depends
 from sqlmodel import SQLModel
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
@@ -24,6 +22,3 @@ async def create_db_and_tables():
 async def get_session() -> AsyncSession:
     async with async_session_maker() as session:
         yield session
-
-
-SessionDep = Annotated[AsyncSession, Depends(get_session)]

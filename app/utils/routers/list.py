@@ -4,7 +4,7 @@ from typing import Annotated, List
 from fastapi import HTTPException, Query
 from sqlmodel import select
 
-from app.configs.database import SessionDep
+from app.configs import db_session
 from .default import RoutersParams
 
 
@@ -15,7 +15,7 @@ class RoutersList(RoutersParams):
 
         @self.router.get("/", response_model=List[ModelOut])
         async def read_many(
-                session: SessionDep,
+                session: db_session,
                 offset: int = 0,
                 limit: Annotated[int, Query(le=100)] = 100,
         ):
@@ -28,7 +28,7 @@ class RoutersList(RoutersParams):
         ModelOut = self.model_out
 
         @self.router.get("/{id}/", response_model=ModelOut)
-        async def read_id(id: uuid.UUID, session: SessionDep):
+        async def read_id(id: uuid.UUID, session: db_session):
             self.session = session
             instance = await session.get(Model, id)
             if not instance:
@@ -42,7 +42,7 @@ class RoutersList(RoutersParams):
         ModelOut = self.model_out
 
         @self.router.get("/choices/", response_model=List[ModelOut])
-        async def read_choices(session: SessionDep):
+        async def read_choices(session: db_session):
             self.session = session
             result = await self.session.execute(select(Model))
             return result.scalars().all()

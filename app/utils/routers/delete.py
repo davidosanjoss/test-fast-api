@@ -1,6 +1,6 @@
 import uuid
 
-from app.configs.database import SessionDep
+from app.configs import db_session
 
 from .default import RoutersParams
 
@@ -11,7 +11,7 @@ class RoutersDelete(RoutersParams):
         ModelOut = self.model_out
 
         @self.router.delete("/{id}", response_model=ModelOut)
-        async def delete_id(id: uuid.UUID, data: ModelIn, session: SessionDep):
+        async def delete_id(id: uuid.UUID, data: ModelIn, session: db_session):
             self.session = session
             instance = self.get_model(id)
 

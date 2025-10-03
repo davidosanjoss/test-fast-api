@@ -1,4 +1,4 @@
-from app.configs.database import SessionDep
+from app.configs import db_session
 
 from .default import RoutersParams
 
@@ -10,7 +10,7 @@ class RoutersCreate(RoutersParams):
         ModelOut = self.model_out
 
         @self.router.post("/", response_model=ModelOut)
-        async def create(data: ModelIn, session: SessionDep):
+        async def create(data: ModelIn, session: db_session):
             self.session = session
             instance = await Model(**data.model_dump())
 

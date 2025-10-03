@@ -1,7 +1,7 @@
 import uuid
 
 from .default import RoutersParams
-from app.configs.database import SessionDep
+from app.configs import db_session
 
 
 class RoutersUpdate(RoutersParams):
@@ -10,7 +10,7 @@ class RoutersUpdate(RoutersParams):
         ModelOut = self.model_out
 
         @self.router.patch("/{id}", response_model=ModelOut)
-        async def update_id(id: uuid.UUID, data: ModelIn, session: SessionDep):
+        async def update_id(id: uuid.UUID, data: ModelIn, session: db_session):
             self.session = session
 
             instance = self.get_model(id)

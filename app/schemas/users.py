@@ -8,6 +8,8 @@ from app.utils.models import ModelBase
 
 
 class Users(ModelBase, table=True):
+    __tablename__ = "users"
+
     username: str = Field(max_length=100, index=True)
     email: EmailStr = Field(max_length=100, unique=True, index=True)
     birthday: date | None = Field(default=None)

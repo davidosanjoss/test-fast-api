@@ -1,5 +1,5 @@
 import uuid as uuid_pkg
-from datetime import datetime, timezone
+from datetime import datetime
 
 from sqlmodel import SQLModel, Field
 
